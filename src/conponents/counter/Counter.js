@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './counterStyles.css';
 const buttonStyles = {
   padding: '.3rem .5rem',
   margin: '1rem',
@@ -39,7 +40,7 @@ const Counter = () => {
       </button>
 
       <div>
-        <h2 data-testid='counterValue' style={flexMidle}>
+        <h2 className={result >= 10 ? "blue" : result < 0 ? "red" : ""} data-testid='counterValue' style={flexMidle}>
           total value: {result}
         </h2>
       </div>

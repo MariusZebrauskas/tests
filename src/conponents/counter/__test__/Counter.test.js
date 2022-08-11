@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Counter from '../Counter';
-import '@testing-library/jest-dom/extend-expect';
-import React, { useState } from 'react';
+
+
 
 test('displaying text: Counter', () => {
   const component = render(<Counter />);
@@ -80,7 +80,7 @@ test('add + 5 ', () => {
 
   fireEvent.change(inputEl, {
     target: {
-      value: "5",
+      value: '5',
     },
   });
 
@@ -88,7 +88,6 @@ test('add + 5 ', () => {
 
   expect(value.textContent).toBe('total value: 5');
 });
-
 
 test('minus - 35 ', () => {
   const { getByText, getByTestId } = render(<Counter />);
@@ -98,11 +97,36 @@ test('minus - 35 ', () => {
 
   fireEvent.change(inputEl, {
     target: {
-      value: "35",
+      value: '35',
     },
   });
 
   fireEvent.click(minusBtnEl);
 
   expect(value.textContent).toBe('total value: -35');
+});
+
+test('chek is color below 0 is red and more than ten blue and other black ', () => {
+  const { getByText, getByTestId } = render(<Counter />);
+  const value = getByText('total value: 0');
+  const inputEl = getByTestId('inputEl');
+  const minusBtnEl = getByText('-');
+  const plusEl = getByText('+');
+
+  fireEvent.change(inputEl, {
+    target: {
+      value: '35',
+    },
+  });
+
+
+  fireEvent.click(minusBtnEl);
+  expect(value.className).toBe('red');
+
+  fireEvent.click(plusEl);
+  expect(value.className).toBe('');
+
+  fireEvent.click(plusEl);
+  expect(value.className).toBe('blue');
+
 });
