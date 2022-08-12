@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './counterStyles.css';
 const buttonStyles = {
   padding: '.3rem .5rem',
@@ -26,6 +26,12 @@ const Counter = () => {
   const onChange = (e) => {
     setAddjustNr(Number(e.target.value));
   };
+
+  let randomRef = useRef(null);
+  useEffect(() => {
+      console.dir(randomRef.current.style.color)
+  }, []);
+
   return (
     <div>
       <h1 data-testid='counter' style={flexMidle}>
@@ -38,12 +44,19 @@ const Counter = () => {
       <button onClick={minus} style={buttonStyles}>
         -
       </button>
-
       <div>
-        <h2 className={result >= 10 ? "blue" : result < 0 ? "red" : ""} data-testid='counterValue' style={flexMidle}>
+        <h2
+          className={result >= 10 ? 'blue' : result < 0 ? 'red' : ''}
+          data-testid='counterValue'
+          style={flexMidle}
+        >
           total value: {result}
         </h2>
       </div>
+
+      <h2 ref={randomRef} data-testid='random' style={{ color: 'red' }}>
+        random elemnet
+      </h2>
     </div>
   );
 };

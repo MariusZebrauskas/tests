@@ -1,8 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Counter from '../Counter';
 
-
-
 test('displaying text: Counter', () => {
   const component = render(<Counter />);
   const aboutAnchorNode = screen.getByText('Counter');
@@ -119,7 +117,6 @@ test('chek is color below 0 is red and more than ten blue and other black ', () 
     },
   });
 
-
   fireEvent.click(minusBtnEl);
   expect(value.className).toBe('red');
 
@@ -128,5 +125,17 @@ test('chek is color below 0 is red and more than ten blue and other black ', () 
 
   fireEvent.click(plusEl);
   expect(value.className).toBe('blue');
-
 });
+
+test('mak sure all buttons are displayed on screen', () => {
+  render(<Counter />);
+  const add = screen.getByText('+');
+  const minus = screen.getByText('-');
+
+  const buttonArray = screen.getAllByRole('button');
+  expect(buttonArray).toHaveLength(2);
+
+  expect(minus).toBeInTheDocument();
+  expect(add).toBeInTheDocument();
+});
+
